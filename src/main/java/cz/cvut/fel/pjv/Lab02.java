@@ -22,11 +22,15 @@ public class Lab02 {
         while (true) {
             ArrayList<Double> current_list = read_file(textIO);
             int list_size = current_list.size();
-            System.out.println(current_list);
+            //System.out.println(current_list);
             if (!finished_reading) {
-                // calculate and print but dont break
+                double mean = mean(current_list, list_size);
+                double standard_deviation = standard_deviation(current_list, list_size, mean);
+                System.out.printf("%d %.3f %.3f\n", list_size, mean, standard_deviation);
             } else if (finished_reading && list_size > 1) {
-                // calculate and print then break
+                double mean = mean(current_list, list_size);
+                double standard_deviation = standard_deviation(current_list, list_size, mean);
+                System.out.printf(" %d %.3f %.3f\n", list_size, mean, standard_deviation);
                 break;
             } else { 
                 break; 
@@ -55,5 +59,21 @@ public class Lab02 {
             }
         }
         return number_list;
+    }
+
+    public double mean(ArrayList<Double> list, int list_size) {
+        double sum = 0.0;
+        for (double num : list) {
+            sum += num;
+        }
+        return sum / list_size;
+    }
+
+    public double standard_deviation(ArrayList<Double> list, int list_size, double mean) {
+        double sum_of_deviations_squares = 0.0;
+        for (double num : list) {
+            sum_of_deviations_squares += Math.pow(num - mean, 2);
+        }
+        return Math.sqrt(sum_of_deviations_squares / list_size);
     }
 }
